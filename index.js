@@ -16,8 +16,12 @@ app.get('/', function(req, res){
 app.get('/results', function(req, res){
 	var query = req.query.search;
 	var url = 'https://openlibrary.org/api/books?bibkeys=ISBN:' + query + '&format=json&jscmd=data';
+	
+	// backend uses request packet!
+	// to use this we need to do:
+	// npm install --save request
 	request(url, function(error, response, dataStream){
-		if (!error && response.statusCode == 200){
+		if (!error && response.statusCode == 200){ // 200 is a success
 			var data = JSON.parse(dataStream);
 			//console.log('data=',data);
 			res.render('results', {data:data, query:query});
